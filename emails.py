@@ -22,20 +22,23 @@ conf = ConnectionConfig(
     VALIDATE_CERTS = True
 )
 
+# class for email schema
 class EmailSchema(BaseModel):
   email: list[EmailStr]
   
   
-  
 async def send_email(email: list, instance: User):
   
+  # generate token
   token_data = {
     "id": instance.id,
     "username": instance.username
   }
   
+  # encode token
   token = jwt.encode(token_data, config_credentials["SECRET"], algorithm="HS256")
   
+  # email template
   template = f"""
   
       <!DOCTYPE html>
@@ -68,6 +71,7 @@ async def send_email(email: list, instance: User):
 
   """
   
+  # skema pesan yang akan dikirim
   message = MessageSchema(
     subject = "Account Verification",
     recipients = email, # List of recipients email
@@ -75,6 +79,7 @@ async def send_email(email: list, instance: User):
     subtype = "html"
   )
   
-  fm = FastMail(conf) # FastMail config
-  await fm.send_message(message) # send the email
+  
+  fastmail_conf = FastMail(conf) # FastMail config
+  await fastmail_conf.send_message(message) # kirim email dengan FastMail sesuai dengan skema pesan yang dibuat
   
