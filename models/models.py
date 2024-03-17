@@ -44,6 +44,8 @@ userPydantic = pydantic_model_creator(User, name = "User", exclude=("is_verified
 userPydanticIn = pydantic_model_creator(User, name = "UserIn", exclude_readonly = True, exclude=("is_verified" , "joinDate"))
 userPydanticOut = pydantic_model_creator(User, name = "UserOut", exclude=("password" , ))
 
+class user_pydantic(userPydantic):
+  pass
 class user_pydanticIn(userPydanticIn):
   pass
 
