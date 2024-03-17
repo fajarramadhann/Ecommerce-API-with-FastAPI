@@ -116,7 +116,7 @@ app.mount("/static", StaticFiles(directory = "static"), name="static")
 @app.post('/upload-img/profile')
 async def upload_img_profile(file: UploadFile = File(...), user: user_pydantic = Depends(get_current_user)):
   
-  PATHFILE = "./static/images/userProfiles/"
+  PATHFILE = "./static/images/user_profiles/"
   # ambil filename
   filename = file.filename
   
